@@ -10,15 +10,15 @@ using mpvnet;
 namespace DimMonitorMPVExtension
 {
     [Export(typeof(IExtension))]
-    public class DimMonitorMPVExtension : IExtension
+    public class ExtensionClass : IExtension
     {
         readonly List<Overlay> overlays = new List<Overlay>(5);
         readonly MainForm MainForm;
         readonly CorePlayer Core;
 
-        public DimMonitorMPVExtension() // plugin initialization
+        public ExtensionClass() // plugin initialization
         {
-            Debug.WriteLine("DimMonitorMPVExtension init");
+            Debug.WriteLine("ExtensionClass init");
 
             MainForm = MainForm.Instance;
             Core = Global.Core;

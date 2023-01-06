@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -18,31 +17,14 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
+using static DimMonitorMPVExtension.WindowsServices;
+
 namespace DimMonitorMPVExtension
 {
     /// <summary>
     /// Interaction logic for Overlay.xaml
     /// </summary>
     /// 
-
-    //public static class WindowsServices
-    //{
-    //    const int WS_EX_TRANSPARENT = 0x00000020;
-    //    const int GWL_EXSTYLE = (-20);
-
-    //    [DllImport("user32.dll")]
-    //    static extern int GetWindowLong(IntPtr hwnd, int index);
-
-    //    [DllImport("user32.dll")]
-    //    static extern int SetWindowLong(IntPtr hwnd, int index, int newStyle);
-
-    //    public static void SetWindowExTransparent(IntPtr hwnd)
-    //    {
-    //        var extendedStyle = GetWindowLong(hwnd, GWL_EXSTYLE);
-    //        SetWindowLong(hwnd, GWL_EXSTYLE, extendedStyle | WS_EX_TRANSPARENT);
-    //    }
-    //}
-
     public partial class Overlay : Window
     {
         //private const int HITTEST_M = 0x84;
@@ -66,6 +48,13 @@ namespace DimMonitorMPVExtension
             timer.Start();
         }
 
+        private void Overlay_Loaded(object sender, RoutedEventArgs e)
+        {
+            var helper = new WindowInteropHelper(this).Handle;
+            //Performing some magic to hide the form from Alt+Tab
+            SetWindowLong(helper, GWL_EX_STYLE, (GetWindowLong(helper, GWL_EX_STYLE) | WS_EX_TOOLWINDOW) & ~WS_EX_APPWINDOW);
+        }
+
         private void Timer_Tick(object sender, EventArgs e)
         {
             this.Fill.Opacity += OPACITY_DELTA;
@@ -78,37 +67,11 @@ namespace DimMonitorMPVExtension
             }
         }
 
-        //protected override void OnInitialized(EventArgs e)
-        //{
-        //    base.OnInitialized(e);
-        //    IntPtr hwnd = new WindowInteropHelper(this).Handle;
-        //    WindowsServices.SetWindowExTransparent(hwnd);
-        //}
-
-        //protected override void OnSourceInitialized(EventArgs e)
-        //{
-        //    base.OnSourceInitialized(e);
-        //    HwndSource source = PresentationSource.FromVisual(this) as HwndSource;
-        //    source.AddHook(WndProc);
-        //}
-
         protected override void OnClosing(CancelEventArgs e)
         {
             base.OnClosing(e);
 
             timer.Stop();
         }
-
-        //private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
-        //{
-        //    //if (msg == HITTEST_M)
-        //    //{
-        //    //    Debug.WriteLine("HIT TEST");
-        //    //    handled = true;
-        //    //    return (IntPtr)(-1);
-        //    //}
-
-        //    return IntPtr.Zero;
-        //}
     }
 }
