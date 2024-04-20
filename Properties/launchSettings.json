@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "DimMonitorMPV_Extension": {
+      "commandName": "Project"
+    },
+    "mpv.net": {
+      "commandName": "Executable",
+      "executablePath": "C:\\mpv_net\\mpvnet.exe"
+    }
+  }
+}
