@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows7.0</TargetFramework>
+    <VersionPrefix>2.0.0</VersionPrefix>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <OutputPath>$(Appdata)\mpv.net\extensions\DimMonitorMPVExtension</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\mpv.net\src\MpvNet\MpvNet.csproj">
+			<Private>false</Private>
+      <ExcludeAssets>all</ExcludeAssets>
+		</ProjectReference>
+    <ProjectReference Include="..\mpv.net\src\MpvNet.Windows\MpvNet.Windows.csproj">
+			<Private>false</Private>
+      <ExcludeAssets>all</ExcludeAssets>
+		</ProjectReference>
+	</ItemGroup>
+
+</Project>
